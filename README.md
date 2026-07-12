@@ -12,30 +12,14 @@ Prize track: **Best Use of Solana**.
 - Next.js board + `/api/actions/declare` Blink endpoint
 - Wallet-adapter (Phantom) site fallback
 
-Program id: `2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X`
+Program id: `2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X` (live on **devnet**)
 
-## Rivalries
+Seeded rivalry PDAs:
 
-| Slug | Sides |
-|------|--------|
-| `worldcup-arg-fra` | Argentina vs France |
-| `fandom-nova-volt` | Crew Nova vs Crew Volt |
+- `worldcup-arg-fra` → `62ojdgGKQWTZm8MtNJaTRa7H2ZSSySEhaE6dKUSv3ZBa`
+- `fandom-nova-volt` → `5UjQA49aELXgsf5K844SXNBYpJK8nmZWgAAkffoQ149k`
 
-## Setup
-
-### Program
-
-```bash
-# PATH: cargo, anchor, solana
-solana config set --url https://api.devnet.solana.com
-# Fund deployer wallet (faucet.solana.com) then:
-anchor build
-anchor deploy --provider.cluster devnet
-npm install
-npm run seed:rivalries
-```
-
-Deployer wallet used in this repo session: `8ePkMNR7KBr8F3vKgfoeVfkAbVQBK2a3s2PETYdFHyy9` (needs SOL — airdrop rate-limited during build).
+Deployer: `8ePkMNR7KBr8F3vKgfoeVfkAbVQBK2a3s2PETYdFHyy9`
 
 ### Web
 

@@ -1,0 +1,8 @@
+.superpowers/
+node_modules/
+.anchor/
+target/
+web/.next/
+.env*
+**/*keypair*.json
+.DS_Store

@@ -7,7 +7,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-matchday_relic = "6Ls8cPe4oBUE6WWsdEKCqTCMZACQCfMLF4xLWAGb7SoA"
+matchday_relic = "2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X"
 
 [provider]
 cluster = "localnet"

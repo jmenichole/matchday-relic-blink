@@ -10,7 +10,7 @@ pub use error::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("6Ls8cPe4oBUE6WWsdEKCqTCMZACQCfMLF4xLWAGb7SoA");
+declare_id!("2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X");
 
 #[program]
 pub mod matchday_relic {

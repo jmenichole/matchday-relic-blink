@@ -32,7 +32,7 @@ Passion isn’t a vibe check — it’s whether you showed up. With the World Cu
 
 ## Repo
 
-GitHub: _(add after push)_
+GitHub: https://github.com/jmenichole/matchday-relic-blink
 
 Program id (devnet): `2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X`
 

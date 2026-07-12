@@ -1,0 +1,123 @@
+"use client";
+
+import { useCallback, useState } from "react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { padBytes } from "@/lib/bytes";
+import {
+  allegiancePda,
+  getProgram,
+  rivalryPda,
+} from "@/lib/program";
+
+type Props = {
+  slug: string;
+  sideA: string;
+  sideB: string;
+  gateOpen: boolean;
+  onDeclared?: () => void;
+};
+
+export function WalletDeclare({
+  slug,
+  sideA,
+  sideB,
+  gateOpen,
+  onDeclared,
+}: Props) {
+  const { connection } = useConnection();
+  const wallet = useWallet();
+  const [side, setSide] = useState<0 | 1>(0);
+  const [motto, setMotto] = useState("");
+  const [status, setStatus] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const declare = useCallback(async () => {
+    if (!wallet.publicKey || !wallet.signTransaction) {
+      setStatus("Connect a wallet first.");
+      return;
+    }
+    if (!gateOpen) {
+      setStatus("Gate closed — Relics locked");
+      return;
+    }
+
+    setBusy(true);
+    setStatus(null);
+    try {
+      const program = getProgram(connection, wallet as never);
+      const rivalry = rivalryPda(slug);
+      const allegiance = allegiancePda(rivalry, wallet.publicKey);
+      const mottoBytes = padBytes(motto.slice(0, 64), 64);
+
+      await program.methods
+        .declare(side, mottoBytes)
+        .accounts({
+          fan: wallet.publicKey,
+          rivalry,
+          allegiance,
+        })
+        .rpc();
+
+      setStatus("Relic stamped on-chain.");
+      onDeclared?.();
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (/WindowClosed|6000|custom program error/i.test(msg)) {
+        setStatus("Gate closed — Relics locked");
+      } else {
+        setStatus(msg);
+      }
+    } finally {
+      setBusy(false);
+    }
+  }, [
+    connection,
+    gateOpen,
+    motto,
+    onDeclared,
+    side,
+    slug,
+    wallet,
+  ]);
+
+  return (
+    <section className="wallet-fallback">
+      <h3>Site fallback</h3>
+      <p>If Blink is unavailable, declare here with your wallet.</p>
+      <WalletMultiButton />
+      <div className="side-picker">
+        <button
+          type="button"
+          className={side === 0 ? "active" : ""}
+          onClick={() => setSide(0)}
+        >
+          {sideA}
+        </button>
+        <button
+          type="button"
+          className={side === 1 ? "active" : ""}
+          onClick={() => setSide(1)}
+        >
+          {sideB}
+        </button>
+      </div>
+      <input
+        className="motto-input"
+        maxLength={64}
+        placeholder="Optional motto"
+        value={motto}
+        onChange={(e) => setMotto(e.target.value)}
+      />
+      <button
+        type="button"
+        className="ticket-cta"
+        disabled={busy || !gateOpen}
+        onClick={declare}
+      >
+        {busy ? "Signing…" : "Declare on-site"}
+      </button>
+      {status ? <p className="status-line">{status}</p> : null}
+    </section>
+  );
+}

@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #f2efe6;
+  --ink-muted: #b8b3a4;
+  --ink-dim: #7a7568;
+  --accent: #e8c547;
+  --side-a: #3d9b6e;
+  --side-b: #c45c26;
+  --warn: #e07060;
+  --line: rgba(242, 239, 230, 0.14);
+  --panel: rgba(12, 22, 18, 0.72);
+  --panel-deep: rgba(6, 12, 10, 0.85);
+  --background: #07110e;
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(61, 155, 110, 0.18), transparent 55%),
+    radial-gradient(900px 500px at 80% 100%, rgba(196, 92, 38, 0.12), transparent 50%),
+    linear-gradient(180deg, #0a1813 0%, #07110e 45%, #050c0a 100%);
+  color: var(--foreground);
+  min-height: 100vh;
+}
+
+.stadium-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(242, 239, 230, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 239, 230, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  opacity: 0.5;
+}
+
+.board-shell {
+  animation: board-rise 0.7s ease-out both;
+}
+
+@keyframes board-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ticket-stub {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(232, 197, 71, 0.08), transparent 40%),
+    var(--panel);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  animation: ticket-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ticket-in {
+  from {
+    opacity: 0;
+    transform: rotate(-1.2deg) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) translateY(0);
+  }
+}
+
+.ticket-perforation {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 22%;
+  width: 1px;
+  background-image: radial-gradient(circle, var(--ink-dim) 1.5px, transparent 1.6px);
+  background-size: 8px 12px;
+  background-repeat: repeat-y;
+  opacity: 0.55;
+}
+
+.ticket-brand {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-shadow: 0 0 40px rgba(232, 197, 71, 0.15);
+}
+
+.ticket-title {
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+}
+
+.ticket-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--accent);
+  background: linear-gradient(180deg, rgba(232, 197, 71, 0.95), #c9a52e);
+  color: #1a1406;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticket-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(232, 197, 71, 0.25);
+}
+
+.ticket-cta-disabled {
+  border-color: var(--ink-dim);
+  background: var(--panel-deep);
+  color: var(--ink-dim);
+  cursor: not-allowed;
+}
+
+.ticket-cta-disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.versus-board {
+  border: 1px solid var(--line);
+  background: var(--panel-deep);
+  animation: board-rise 0.9s ease-out 0.12s both;
+}
+
+.rivalry-link {
+  display: block;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1.25rem 1.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.rivalry-link:hover {
+  border-color: rgba(232, 197, 71, 0.45);
+  background: rgba(18, 32, 26, 0.9);
+  transform: translateY(-2px);
+}
+
+.wallet-fallback {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.wallet-fallback h3 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.06em;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.side-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.side-picker button {
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.side-picker button.active {
+  border-color: var(--accent);
+  background: rgba(232, 197, 71, 0.12);
+}
+
+.motto-input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  background: var(--panel-deep);
+  color: var(--ink);
+}
+
+.status-line {
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}

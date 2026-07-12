@@ -1,0 +1,355 @@
+{
+  "address": "2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X",
+  "metadata": {
+    "name": "matchday_relic",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_rivalry",
+      "discriminator": [
+        30,
+        6,
+        173,
+        110,
+        47,
+        211,
+        25,
+        114
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "rivalry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  105,
+                  118,
+                  97,
+                  108,
+                  114,
+                  121
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "rivalry_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "rivalry_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "side_a",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "side_b",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "window_start",
+          "type": "i64"
+        },
+        {
+          "name": "window_end",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "declare",
+      "discriminator": [
+        255,
+        117,
+        104,
+        245,
+        147,
+        158,
+        160,
+        131
+      ],
+      "accounts": [
+        {
+          "name": "fan",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "rivalry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  105,
+                  118,
+                  97,
+                  108,
+                  114,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "rivalry.rivalry_id",
+                "account": "Rivalry"
+              }
+            ]
+          }
+        },
+        {
+          "name": "allegiance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  108,
+                  108,
+                  101,
+                  103,
+                  105,
+                  97,
+                  110,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "rivalry"
+              },
+              {
+                "kind": "account",
+                "path": "fan"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "side",
+          "type": "u8"
+        },
+        {
+          "name": "motto",
+          "type": {
+            "array": [
+              "u8",
+              64
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Allegiance",
+      "discriminator": [
+        253,
+        50,
+        124,
+        24,
+        70,
+        16,
+        93,
+        125
+      ]
+    },
+    {
+      "name": "Rivalry",
+      "discriminator": [
+        232,
+        255,
+        182,
+        233,
+        123,
+        58,
+        119,
+        28
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "WindowClosed",
+      "msg": "Match window is closed"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidSide",
+      "msg": "Side must be 0 or 1"
+    },
+    {
+      "code": 6002,
+      "name": "MottoTooLong",
+      "msg": "Motto exceeds max length"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidWindow",
+      "msg": "window_end must be after window_start"
+    }
+  ],
+  "types": [
+    {
+      "name": "Allegiance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "fan",
+            "type": "pubkey"
+          },
+          {
+            "name": "rivalry",
+            "type": "pubkey"
+          },
+          {
+            "name": "side",
+            "type": "u8"
+          },
+          {
+            "name": "motto",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "declared_at",
+            "type": "i64"
+          },
+          {
+            "name": "has_relic",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Rivalry",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "rivalry_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "side_a",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "side_b",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "window_start",
+            "type": "i64"
+          },
+          {
+            "name": "window_end",
+            "type": "i64"
+          },
+          {
+            "name": "count_a",
+            "type": "u32"
+          },
+          {
+            "name": "count_b",
+            "type": "u32"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "ALLEGIANCE_SEED",
+      "type": "bytes",
+      "value": "[97, 108, 108, 101, 103, 105, 97, 110, 99, 101]"
+    },
+    {
+      "name": "RIVALRY_SEED",
+      "type": "bytes",
+      "value": "[114, 105, 118, 97, 108, 114, 121]"
+    }
+  ]
+}

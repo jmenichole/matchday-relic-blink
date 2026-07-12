@@ -1,5 +1,5 @@
-pub mod initialize;
-pub mod increment;
+pub mod create_rivalry;
+pub mod declare;
 
-pub use initialize::*;
-pub use increment::*;
+pub use create_rivalry::*;
+pub use declare::*;

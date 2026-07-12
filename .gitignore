@@ -10,3 +10,7 @@ web/.next/
 test-ledger
 .yarn
 .surfpool
+
+# Build artifacts / local bins
+.bin/
+

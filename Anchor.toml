@@ -9,9 +9,12 @@ skip-lint = false
 [programs.localnet]
 matchday_relic = "2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X"
 
+[programs.devnet]
+matchday_relic = "2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X"
+
 [provider]
-cluster = "localnet"
-wallet = '~\.config/solana/id.json'
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "cargo test"

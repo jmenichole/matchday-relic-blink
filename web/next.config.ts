@@ -4,7 +4,6 @@ import path from "path";
 const emptyMobile = path.join(__dirname, "vendor", "empty-mobile-adapter");
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["@coral-xyz/anchor", "@solana/web3.js"],
   turbopack: {},
   webpack: (config) => {
     config.resolve.fallback = {

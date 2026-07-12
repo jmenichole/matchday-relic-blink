@@ -10,11 +10,11 @@ Matchday Relic Blink — passion is showing up while it counts
 
 ## Overview
 
-I built **Matchday Relic**, a Solana Action/Blink + board where fans declare for a rivalry *during a live window* and stamp an on-chain Relic. After the whistle, that stamp can no longer be earned. Same mechanic for a World Cup rivalry (Argentina vs France) and a fandom war (Crew Nova vs Crew Volt).
+**Matchday Relic** makes passion measurable: during a live Matchday window you declare a side and Solana stamps an on-chain Relic. After the gate closes, that stamp can no longer be earned — the clock is on-chain, not a website timer. Claim with a wallet on the board, or share a Blink so fans go from feed to chain. Same ritual for World Cup (Argentina vs France) and a fandom war (Crew Nova vs Crew Volt).
 
 ## What inspired it
 
-Passion isn’t a vibe check — it’s whether you showed up. With the World Cup energy everywhere, I wanted a tiny on-chain ritual: public allegiance that only counts if you claim it in time.
+Passion isn’t a vibe check — it’s whether you showed up. With World Cup energy everywhere, I wanted a tiny on-chain ritual: public allegiance that only counts if you claim it in time.
 
 ## How it works
 

@@ -10,6 +10,7 @@ import {
 } from "react";
 import { fetchRivalryAccount, rivalryPda, RPC_URL } from "@/lib/program";
 import { rivalryCssVars, type RivalryMeta } from "@/lib/rivalries";
+import { BoardExplainer } from "@/components/BoardExplainer";
 import { TicketStub } from "@/components/TicketStub";
 import { VersusBoard } from "@/components/VersusBoard";
 import { WalletProviders } from "@/components/WalletProviders";
@@ -93,6 +94,11 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
   );
 
   const nowSec = Math.floor(Date.now() / 1000) + tick * 0;
+  const windowMissing =
+    !state.loading &&
+    (state.windowStart == null ||
+      state.windowEnd == null ||
+      Boolean(state.error?.includes("not found")));
   const gateOpen =
     state.windowStart != null &&
     state.windowEnd != null &&
@@ -114,6 +120,11 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
           blinkBaseUrl={blinkBaseUrl}
           windowEnd={state.windowEnd}
           loading={state.loading}
+        />
+        <BoardExplainer
+          gateOpen={Boolean(gateOpen)}
+          loading={state.loading}
+          windowMissing={windowMissing}
         />
         <VersusBoard
           sideA={rivalry.sideA}

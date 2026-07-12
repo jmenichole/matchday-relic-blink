@@ -14,9 +14,9 @@ const body = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Matchday Relic",
+  title: "Matchday Relic — stamp allegiance while the gate is open",
   description:
-    "Claim a time-gated Matchday Relic on Solana — sports and fandom rivalries.",
+    "Passion is showing up while it counts. Declare your side during a live Matchday window and earn an on-chain Relic on Solana.",
 };
 
 export default function RootLayout({

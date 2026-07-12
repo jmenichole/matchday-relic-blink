@@ -6,3 +6,7 @@ web/.next/
 .env*
 **/*keypair*.json
 .DS_Store
+**/*.rs.bk
+test-ledger
+.yarn
+.surfpool

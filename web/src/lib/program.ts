@@ -82,9 +82,11 @@ export async function fetchRivalryAccount(
   pda: PublicKey,
 ): Promise<FetchedRivalry | null> {
   const program = getReadOnlyProgram(connection);
-  const account = (await program.account.rivalry.fetchNullable(pda)) as
-    | RivalryAccount
-    | null;
+  const account = (await (
+    program.account as unknown as {
+      rivalry: { fetchNullable: (pda: PublicKey) => Promise<RivalryAccount | null> };
+    }
+  ).rivalry.fetchNullable(pda));
   if (!account) return null;
   return {
     countA: account.countA,

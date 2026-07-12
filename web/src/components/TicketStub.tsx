@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { dialectBlinkUrl } from "@/lib/rivalries";
 
 type TicketStubProps = {
   title: string;
@@ -39,9 +40,8 @@ export function TicketStub({
 
   const remaining = windowEnd == null ? null : windowEnd - now;
   const closed = remaining != null && remaining <= 0;
-  const dialectUrl = `https://dial.to/?action=${encodeURIComponent(
-    `solana-action:${blinkBaseUrl}`,
-  )}`;
+  // Nested Action URL query must be percent-encoded inside dial.to `action=`
+  const dialectUrl = dialectBlinkUrl(blinkBaseUrl);
 
   return (
     <section className="ticket-stub relative overflow-hidden px-8 py-10 sm:px-12 sm:py-14">
@@ -49,7 +49,9 @@ export function TicketStub({
       <p className="ticket-brand">Matchday Relic</p>
       <h1 className="ticket-title mt-3 max-w-xl">{title}</h1>
       <p className="mt-4 font-[family-name:var(--font-body)] text-base tracking-wide text-[var(--ink-muted)] sm:text-lg">
-        {sideA} <span className="text-[var(--accent)]">vs</span> {sideB}
+        <span className="text-[var(--side-a)]">{sideA}</span>{" "}
+        <span className="text-[var(--accent)]">vs</span>{" "}
+        <span className="text-[var(--side-b)]">{sideB}</span>
       </p>
 
       <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -66,20 +68,31 @@ export function TicketStub({
           </p>
         </div>
 
-        {closed || remaining == null ? (
-          <button type="button" disabled className="ticket-cta ticket-cta-disabled">
-            Gate closed — Relics locked
-          </button>
-        ) : (
-          <a
-            className="ticket-cta"
-            href={dialectUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Claim Relic
-          </a>
-        )}
+        <div className="ticket-cta-group">
+          {loading ? (
+            <button type="button" disabled className="ticket-cta ticket-cta-disabled">
+              Checking gate…
+            </button>
+          ) : closed || remaining == null ? (
+            <button type="button" disabled className="ticket-cta ticket-cta-disabled">
+              Gate closed — Relics locked
+            </button>
+          ) : (
+            <>
+              <a className="ticket-cta" href="#claim">
+                Claim Relic
+              </a>
+              <a
+                className="ticket-blink-link"
+                href={dialectUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open Blink
+              </a>
+            </>
+          )}
+        </div>
       </div>
     </section>
   );

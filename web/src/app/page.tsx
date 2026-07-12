@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { RIVALRIES } from "@/lib/rivalries";
+import type { CSSProperties } from "react";
+import { RIVALRIES, rivalryCssVars } from "@/lib/rivalries";
 
 export default function Home() {
   return (
@@ -17,13 +18,18 @@ export default function Home() {
 
         <ul className="grid gap-4">
           {RIVALRIES.map((rivalry) => (
-            <li key={rivalry.slug}>
+            <li
+              key={rivalry.slug}
+              style={rivalryCssVars(rivalry.colors) as CSSProperties}
+            >
               <Link className="rivalry-link" href={`/r/${rivalry.slug}`}>
                 <span className="font-[family-name:var(--font-display)] text-2xl tracking-wide">
                   {rivalry.title}
                 </span>
-                <span className="mt-1 block text-sm text-[var(--ink-muted)]">
-                  {rivalry.sideA} vs {rivalry.sideB}
+                <span className="rivalry-link-sides">
+                  <span className="side-a-label">{rivalry.sideA}</span>
+                  <span className="text-[var(--ink-dim)]">vs</span>
+                  <span className="side-b-label">{rivalry.sideB}</span>
                 </span>
               </Link>
             </li>

@@ -6,13 +6,17 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { RPC_URL } from "@/lib/program";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
+/**
+ * Empty `wallets` relies on Wallet Standard auto-detection so installed
+ * wallets (Phantom, Solflare, Backpack, Glow, Coinbase, etc.) appear
+ * without hardcoding a single adapter.
+ */
 export function WalletProviders({ children }: { children: ReactNode }) {
-  const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
+  const wallets = useMemo(() => [], []);
 
   return (
     <ConnectionProvider endpoint={RPC_URL}>

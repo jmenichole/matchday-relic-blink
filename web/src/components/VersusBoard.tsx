@@ -27,7 +27,7 @@ export function VersusBoard({
         Live allegiance
       </p>
       <div className="mt-8 grid grid-cols-[1fr_auto_1fr] items-center gap-4 sm:gap-8">
-        <div className="text-right">
+        <div className="versus-panel versus-panel-a text-right">
           <p className="font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--side-a)] sm:text-3xl">
             {sideA}
           </p>
@@ -36,11 +36,11 @@ export function VersusBoard({
           </p>
         </div>
 
-        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--panel-deep)] font-[family-name:var(--font-display)] text-lg tracking-widest text-[var(--accent)] sm:h-20 sm:w-20 sm:text-xl">
+        <div className="versus-badge flex h-16 w-16 items-center justify-center rounded-full font-[family-name:var(--font-display)] text-lg tracking-widest text-[var(--accent)] sm:h-20 sm:w-20 sm:text-xl">
           VS
         </div>
 
-        <div className="text-left">
+        <div className="versus-panel versus-panel-b text-left">
           <p className="font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--side-b)] sm:text-3xl">
             {sideB}
           </p>

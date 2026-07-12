@@ -82,21 +82,23 @@ export function WalletDeclare({
   ]);
 
   return (
-    <section className="wallet-fallback">
-      <h3>Site fallback</h3>
-      <p>If Blink is unavailable, declare here with your wallet.</p>
+    <section id="claim" className="wallet-fallback">
+      <h3>Claim Relic</h3>
+      <p>
+        Pick a side, connect any Solana wallet, and stamp your Relic on-site.
+      </p>
       <WalletMultiButton />
       <div className="side-picker">
         <button
           type="button"
-          className={side === 0 ? "active" : ""}
+          className={`side-a${side === 0 ? " active" : ""}`}
           onClick={() => setSide(0)}
         >
           {sideA}
         </button>
         <button
           type="button"
-          className={side === 1 ? "active" : ""}
+          className={`side-b${side === 1 ? " active" : ""}`}
           onClick={() => setSide(1)}
         >
           {sideB}
@@ -115,7 +117,7 @@ export function WalletDeclare({
         disabled={busy || !gateOpen}
         onClick={declare}
       >
-        {busy ? "Signing…" : "Declare on-site"}
+        {busy ? "Signing…" : "Declare & stamp"}
       </button>
       {status ? <p className="status-line">{status}</p> : null}
     </section>

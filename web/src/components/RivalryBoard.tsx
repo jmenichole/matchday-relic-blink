@@ -1,9 +1,15 @@
 "use client";
 
 import { Connection } from "@solana/web3.js";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+} from "react";
 import { fetchRivalryAccount, rivalryPda, RPC_URL } from "@/lib/program";
-import type { RivalryMeta } from "@/lib/rivalries";
+import { rivalryCssVars, type RivalryMeta } from "@/lib/rivalries";
 import { TicketStub } from "@/components/TicketStub";
 import { VersusBoard } from "@/components/VersusBoard";
 import { WalletProviders } from "@/components/WalletProviders";
@@ -81,6 +87,11 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
     [origin, rivalry.slug],
   );
 
+  const themeVars = useMemo(
+    () => rivalryCssVars(rivalry.colors),
+    [rivalry.colors],
+  );
+
   const nowSec = Math.floor(Date.now() / 1000) + tick * 0;
   const gateOpen =
     state.windowStart != null &&
@@ -91,7 +102,10 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
 
   return (
     <WalletProviders>
-      <div className="board-shell mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10 sm:px-6 sm:py-14">
+      <div
+        className="board-shell mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10 sm:px-6 sm:py-14"
+        style={themeVars as CSSProperties}
+      >
         <TicketStub
           title={rivalry.title}
           sideA={rivalry.sideA}

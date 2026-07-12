@@ -1,14 +1,11 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-const emptyMobileAdapter = path.join(
-  __dirname,
-  "vendor",
-  "empty-mobile-adapter",
-);
+const emptyMobile = path.join(__dirname, "vendor", "empty-mobile-adapter");
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["@coral-xyz/anchor", "@solana/web3.js"],
+  turbopack: {},
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
@@ -18,9 +15,9 @@ const nextConfig: NextConfig = {
     };
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@solana-mobile/wallet-adapter-mobile": emptyMobileAdapter,
-      "@solana-mobile/mobile-wallet-adapter-protocol": emptyMobileAdapter,
-      "@solana-mobile/mobile-wallet-adapter-protocol-web3js": emptyMobileAdapter,
+      "@solana-mobile/wallet-adapter-mobile": emptyMobile,
+      "@solana-mobile/mobile-wallet-adapter-protocol": emptyMobile,
+      "@solana-mobile/mobile-wallet-adapter-protocol-web3js": emptyMobile,
     };
     return config;
   },

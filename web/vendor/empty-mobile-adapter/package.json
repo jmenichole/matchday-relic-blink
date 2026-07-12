@@ -2,7 +2,6 @@
   "name": "@solana-mobile/wallet-adapter-mobile",
   "version": "0.0.0",
   "main": "index.js",
-  "module": "index.js",
   "types": "index.d.ts",
   "license": "Apache-2.0"
 }

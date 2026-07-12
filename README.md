@@ -21,19 +21,31 @@ Seeded rivalry PDAs:
 
 Deployer: `8ePkMNR7KBr8F3vKgfoeVfkAbVQBK2a3s2PETYdFHyy9`
 
-### Web
+### Web (local run)
 
-```bash
-cd web
+On Windows, `npm install` under paths with spaces (e.g. `...\hackathon projects\...`) can fail with `TAR_ENTRY_ERROR` / `EPERM`. Use a short path without spaces:
+
+```powershell
+# PATH tip (Solana / cargo tools)
+$env:Path = "$env:USERPROFILE\.cargo\bin;$env:USERPROFILE\.local\bin;$env:USERPROFILE\.local\share\solana\install\active_release\bin;$env:Path"
+
+# Copy web app to a short path (one-time / when deps change)
+New-Item -ItemType Directory -Force -Path C:\dev\matchday-relic-blink | Out-Null
+robocopy "C:\Users\jmeni\.cursor\hackathon projects\matchday-relic-blink\web" "C:\dev\matchday-relic-blink\web" /E /XD node_modules .next
+
+cd C:\dev\matchday-relic-blink\web
 npm install
-# optional
-# NEXT_PUBLIC_RPC_URL=...
-# NEXT_PUBLIC_PROGRAM_ID=2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X
-# NEXT_PUBLIC_SITE_URL=https://your-deploy.example
+# optional env
+# $env:NEXT_PUBLIC_RPC_URL="https://api.devnet.solana.com"
+# $env:NEXT_PUBLIC_PROGRAM_ID="2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X"
+# $env:NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+npm run build
 npm run dev
 ```
 
 Open `http://localhost:3000/r/worldcup-arg-fra`.
+
+If your clone already lives on a path without spaces, a normal `cd web && npm install && npm run dev` is enough. Builds use webpack (`next build --webpack`) so Solana wallet polyfills and the empty `@solana-mobile/*` stubs resolve cleanly.
 
 ### Blink
 

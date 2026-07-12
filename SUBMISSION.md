@@ -26,8 +26,10 @@ Passion isn’t a vibe check — it’s whether you showed up. With the World Cu
 
 ## Demo
 
-- Board: `/r/worldcup-arg-fra` and `/r/fandom-nova-volt`
-- Blink: `solana-action:https://matchday-relic-blink.vercel.app/api/actions/declare?slug=worldcup-arg-fra`
+- Live site: https://matchday-relic-blink.vercel.app
+- Board: https://matchday-relic-blink.vercel.app/r/worldcup-arg-fra and https://matchday-relic-blink.vercel.app/r/fandom-nova-volt
+- Action: `solana-action:https://matchday-relic-blink.vercel.app/api/actions/declare?slug=worldcup-arg-fra`
+- Dialect: `https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Fmatchday-relic-blink.vercel.app%2Fapi%2Factions%2Fdeclare%3Fslug%3Dworldcup-arg-fra`
 - Script: open board → Claim → sign → tallies bump; closed window shows gate locked
 
 ## Repo

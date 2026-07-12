@@ -49,13 +49,15 @@ If your clone already lives on a path without spaces, a normal `cd web && npm in
 
 ### Blink
 
+Live site: `https://matchday-relic-blink.vercel.app`
+
 Action URL:
 
-`https://<SITE>/api/actions/declare?slug=worldcup-arg-fra`
+`https://matchday-relic-blink.vercel.app/api/actions/declare?slug=worldcup-arg-fra`
 
 Dialect:
 
-`https://dial.to/?action=solana-action:https://<SITE>/api/actions/declare?slug=worldcup-arg-fra`
+`https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Fmatchday-relic-blink.vercel.app%2Fapi%2Factions%2Fdeclare%3Fslug%3Dworldcup-arg-fra`
 
 ## Challenge notes
 

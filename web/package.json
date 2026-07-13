@@ -37,6 +37,6 @@
     "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "file:vendor/empty-mobile-adapter"
   },
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   }
 }

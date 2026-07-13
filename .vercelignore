@@ -1,0 +1,10 @@
+# Keep upload small; do NOT ignore web/src/app
+/target
+/test-ledger
+/.bin
+/node_modules
+/programs
+/docs
+/scripts
+/app
+.git

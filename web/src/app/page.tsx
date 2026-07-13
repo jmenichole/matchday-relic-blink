@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { RIVALRIES, rivalryCssVars } from "@/lib/rivalries";
 
 const FEATURED = RIVALRIES[0];
@@ -12,7 +13,7 @@ const STEPS = [
   {
     n: "02",
     title: "Declare your side",
-    body: "On the match board, pick a team, connect your wallet, and stamp a Relic. A Blink is just a shareable claim button for the same action.",
+    body: "On the match board, pick a team, connect your wallet, and stamp a Relic. Or open the Blink page to run the same Solana Action in-app.",
   },
   {
     n: "03",
@@ -25,7 +26,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen">
       <div className="stadium-glow" aria-hidden />
-      <div className="relative mx-auto w-full max-w-3xl px-6 pb-20 pt-16 sm:pt-20">
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pb-20 pt-16 sm:pt-20">
         <section className="landing-hero flex min-h-[72vh] flex-col justify-center gap-8">
           <p className="landing-brand">Matchday Relic</p>
           <div className="max-w-xl space-y-4">
@@ -39,13 +40,14 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
+            <Link
               className="ticket-cta landing-cta"
               href={`/r/${FEATURED.slug}`}
               style={rivalryCssVars(FEATURED.colors) as CSSProperties}
+              prefetch
             >
               Enter {FEATURED.title}
-            </a>
+            </Link>
             <a className="landing-secondary" href="#how-it-works">
               How it works
             </a>
@@ -85,9 +87,8 @@ export default function Home() {
           </h2>
           <p className="landing-section-lede max-w-lg">
             The Matchday window is enforced by Solana&apos;s clock - not a
-            website timer you can game. Claim here with your wallet. Share a
-            Blink only when you want friends to hit the same claim button from
-            a feed.
+            website timer you can game. Claim on the board with your wallet, or
+            use the Blink page to run the Solana Action in-app.
           </p>
         </section>
 
@@ -99,8 +100,8 @@ export default function Home() {
             Pick a rivalry
           </h2>
           <p className="landing-section-lede">
-            Jump onto a board, watch live tallies, and claim before the gate
-            locks.
+            Tap a card to open that match board, watch live tallies, and claim
+            before the gate locks.
           </p>
           <ul className="mt-6 grid gap-4">
             {RIVALRIES.map((rivalry) => (
@@ -108,9 +109,10 @@ export default function Home() {
                 key={rivalry.slug}
                 style={rivalryCssVars(rivalry.colors) as CSSProperties}
               >
-                <a
+                <Link
                   className="rivalry-link"
                   href={`/r/${rivalry.slug}`}
+                  prefetch
                   aria-label={`Open ${rivalry.title} board`}
                 >
                   <span className="font-[family-name:var(--font-display)] text-2xl tracking-wide">
@@ -121,8 +123,8 @@ export default function Home() {
                     <span className="text-[var(--ink-dim)]">vs</span>
                     <span className="side-b-label">{rivalry.sideB}</span>
                   </span>
-                  <span className="rivalry-link-cta">Open match board</span>
-                </a>
+                  <span className="rivalry-link-cta">Open match board →</span>
+                </Link>
               </li>
             ))}
           </ul>

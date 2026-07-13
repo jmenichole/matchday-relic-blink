@@ -2,12 +2,14 @@ type BoardExplainerProps = {
   gateOpen: boolean;
   loading: boolean;
   windowMissing: boolean;
+  blinkPath: string;
 };
 
 export function BoardExplainer({
   gateOpen,
   loading,
   windowMissing,
+  blinkPath,
 }: BoardExplainerProps) {
   const statusLabel = loading
     ? "Checking gate."
@@ -36,12 +38,22 @@ export function BoardExplainer({
         <span className="board-explainer-status-label">{statusLabel}</span>
         <span className="board-explainer-status-hint">{statusHint}</span>
       </p>
-      <p className="board-explainer-claim">
-        <strong>Claim with your wallet below</strong> - that is the main path.
-        A <strong>Blink</strong> is a shareable Solana claim button (via Dial.to)
-        so someone can declare from a feed without browsing this page first. Use
-        it to share; use the wallet form here to stamp your own Relic.
-      </p>
+      <div className="board-explainer-claim">
+        <p>
+          <strong>How to claim (recommended):</strong> scroll to{" "}
+          <em>Claim Relic with wallet</em>, pick a side, connect any Solana
+          wallet on Devnet, and tap Declare &amp; stamp.
+        </p>
+        <p className="mt-3">
+          <strong>What is a Blink?</strong> A Blink is a Solana Action — a
+          special link that builds the same declare transaction. Dial.to often
+          fails in browsers, so we host an{" "}
+          <a className="board-explainer-link" href={blinkPath}>
+            in-app Blink page
+          </a>{" "}
+          that talks to our Action API and lets your wallet sign here.
+        </p>
+      </div>
     </section>
   );
 }

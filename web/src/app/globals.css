@@ -490,3 +490,128 @@ body {
 .board-explainer-claim {
   margin-top: 0.65rem;
 }
+
+.board-explainer-claim p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+
+.board-explainer-claim strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.board-explainer-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.board-explainer-link:hover {
+  color: var(--ink);
+}
+
+/* —— In-app Blink —— */
+
+.blink-panel {
+  margin-top: 1.75rem;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(
+      135deg,
+      var(--side-a-soft),
+      transparent 45%,
+      var(--side-b-soft)
+    ),
+    var(--panel);
+  padding: 1.5rem 1.35rem 1.75rem;
+}
+
+.blink-panel-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  letter-spacing: 0.06em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.blink-panel-body,
+.blink-panel-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.blink-panel-note {
+  color: var(--ink-dim);
+  font-size: 0.88rem;
+}
+
+.blink-steps {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.blink-wallet {
+  margin-top: 1.25rem;
+}
+
+.blink-side-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .blink-side-actions {
+    flex-direction: row;
+  }
+}
+
+.side-a-cta {
+  --cta-from: var(--side-a) !important;
+  --cta-to: color-mix(in srgb, var(--side-a) 70%, black) !important;
+  --cta-text: #0a1620 !important;
+}
+
+.side-b-cta {
+  --cta-from: var(--side-b) !important;
+  --cta-to: color-mix(in srgb, var(--side-b) 70%, black) !important;
+  --cta-text: #f5f7ff !important;
+}
+
+.blink-share {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  align-items: flex-start;
+}
+
+.blink-share-label {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.blink-share-url {
+  display: block;
+  width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  background: var(--panel-deep);
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+}

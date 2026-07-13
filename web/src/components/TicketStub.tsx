@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { dialectBlinkUrl } from "@/lib/rivalries";
+import Link from "next/link";
 
 type TicketStubProps = {
   title: string;
   sideA: string;
   sideB: string;
   slug: string;
-  blinkBaseUrl: string;
   windowEnd: number | null;
   loading?: boolean;
 };
@@ -25,7 +24,7 @@ export function TicketStub({
   title,
   sideA,
   sideB,
-  blinkBaseUrl,
+  slug,
   windowEnd,
   loading,
 }: TicketStubProps) {
@@ -40,7 +39,6 @@ export function TicketStub({
 
   const remaining = windowEnd == null ? null : windowEnd - now;
   const closed = remaining != null && remaining <= 0;
-  const dialectUrl = dialectBlinkUrl(blinkBaseUrl);
 
   return (
     <section className="ticket-stub relative overflow-hidden px-8 py-10 sm:px-12 sm:py-14">
@@ -81,15 +79,9 @@ export function TicketStub({
               <a className="ticket-cta" href="#claim">
                 Claim with wallet
               </a>
-              <a
-                className="ticket-blink-link"
-                href={dialectUrl}
-                target="_blank"
-                rel="noreferrer"
-                title="Opens Dial.to with a shareable Solana claim button for this match"
-              >
-                Share Blink instead
-              </a>
+              <Link className="ticket-blink-link" href={`/blink/${slug}`}>
+                Open Blink claim (explained)
+              </Link>
             </>
           )}
         </div>

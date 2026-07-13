@@ -18,7 +18,6 @@ import { WalletDeclare } from "@/components/WalletDeclare";
 
 type RivalryBoardProps = {
   rivalry: RivalryMeta;
-  origin: string;
 };
 
 type BoardState = {
@@ -30,7 +29,7 @@ type BoardState = {
   error: string | null;
 };
 
-export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
+export function RivalryBoard({ rivalry }: RivalryBoardProps) {
   const [state, setState] = useState<BoardState>({
     countA: null,
     countB: null,
@@ -90,12 +89,6 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
     return () => window.clearInterval(id);
   }, []);
 
-  const blinkBaseUrl = useMemo(
-    () =>
-      `${origin}/api/actions/declare?slug=${encodeURIComponent(rivalry.slug)}`,
-    [origin, rivalry.slug],
-  );
-
   const themeVars = useMemo(
     () => rivalryCssVars(rivalry.colors),
     [rivalry.colors],
@@ -124,7 +117,6 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
           sideA={rivalry.sideA}
           sideB={rivalry.sideB}
           slug={rivalry.slug}
-          blinkBaseUrl={blinkBaseUrl}
           windowEnd={state.windowEnd}
           loading={state.loading}
         />
@@ -132,6 +124,7 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
           gateOpen={Boolean(gateOpen)}
           loading={state.loading}
           windowMissing={windowMissing}
+          blinkPath={`/blink/${rivalry.slug}`}
         />
         <VersusBoard
           sideA={rivalry.sideA}

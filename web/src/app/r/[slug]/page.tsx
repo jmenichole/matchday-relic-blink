@@ -27,7 +27,7 @@ export default async function RivalryPage({
           href="/"
           className="text-sm tracking-wide text-[var(--ink-muted)] hover:text-[var(--ink)]"
         >
-          ← All rivalries
+          All rivalries
         </Link>
       </div>
       <RivalryBoard rivalry={rivalry} origin={origin} />

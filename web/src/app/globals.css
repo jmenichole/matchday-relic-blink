@@ -228,6 +228,7 @@ body {
 
 .rivalry-link {
   display: block;
+  cursor: pointer;
   border: 1px solid var(--line);
   background: var(--panel);
   padding: 1.25rem 1.5rem;
@@ -256,6 +257,14 @@ body {
 
 .rivalry-link-sides .side-b-label {
   color: var(--side-b);
+}
+.rivalry-link-cta {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .wallet-fallback {

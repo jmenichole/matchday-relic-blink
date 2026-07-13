@@ -8,9 +8,9 @@ import {
 import {
   Connection,
   PublicKey,
+  SystemProgram,
+  Transaction,
   TransactionInstruction,
-  TransactionMessage,
-  VersionedTransaction,
 } from "@solana/web3.js";
 import { Program, AnchorProvider, Idl } from "@coral-xyz/anchor";
 import idl from "@/idl/matchday_relic.json";
@@ -21,7 +21,10 @@ import { RPC_URL, allegiancePda, rivalryPda } from "@/lib/program";
 export const runtime = "nodejs";
 
 function actionHeaders() {
-  return ACTIONS_CORS_HEADERS;
+  return {
+    ...ACTIONS_CORS_HEADERS,
+    "Content-Type": "application/json",
+  };
 }
 
 function readOnlyProgram(connection: Connection) {
@@ -60,8 +63,8 @@ export async function GET(req: Request) {
   const payload: ActionGetResponse = {
     type: "action",
     icon: new URL("/relic-icon.svg", url.origin).toString(),
-    title: `Claim Relic · ${rivalry.title}`,
-    description: `Declare for ${rivalry.sideA} or ${rivalry.sideB} during the live window and stamp your Matchday Relic on Solana.`,
+    title: `Claim Relic - ${rivalry.title}`,
+    description: `Pick ${rivalry.sideA} or ${rivalry.sideB} while the Matchday gate is open. Signing stamps your Relic on Solana (program 2Gyr5GPN7JZ3sdZCsXY3m8ZQ1roF5Qeb1Wfrak4wkA3X).`,
     label: "Claim Matchday Relic",
     links: {
       actions: [
@@ -98,10 +101,28 @@ export async function POST(req: Request) {
     }
 
     const body = (await req.json()) as ActionPostRequest;
+    if (!body?.account) {
+      return Response.json(
+        { message: "Missing account in Action POST body" },
+        { status: 400, headers: actionHeaders() },
+      );
+    }
+
     const fan = new PublicKey(body.account);
     const connection = new Connection(RPC_URL, "confirmed");
-    const program = readOnlyProgram(connection);
     const rivalryKey = rivalryPda(slug);
+
+    const rivalryInfo = await connection.getAccountInfo(rivalryKey, "confirmed");
+    if (!rivalryInfo) {
+      return Response.json(
+        {
+          message: `Rivalry PDA not found on-chain for slug "${slug}". Seed the program on devnet first.`,
+        },
+        { status: 400, headers: actionHeaders() },
+      );
+    }
+
+    const program = readOnlyProgram(connection);
     const allegiance = allegiancePda(rivalryKey, fan);
     const motto = padBytes("", 64);
 
@@ -111,24 +132,25 @@ export async function POST(req: Request) {
         fan,
         rivalry: rivalryKey,
         allegiance,
+        systemProgram: SystemProgram.programId,
       })
       .instruction();
 
-    const { blockhash } = await connection.getLatestBlockhash("confirmed");
+    const { blockhash, lastValidBlockHeight } =
+      await connection.getLatestBlockhash("confirmed");
 
-    const message = new TransactionMessage({
-      payerKey: fan,
-      recentBlockhash: blockhash,
-      instructions: [ix],
-    }).compileToV0Message();
-
-    const tx = new VersionedTransaction(message);
+    // Legacy Transaction: widest Blink / wallet client support vs v0-only payloads.
+    const tx = new Transaction({
+      feePayer: fan,
+      blockhash,
+      lastValidBlockHeight,
+    }).add(ix);
 
     const payload: ActionPostResponse = await createPostResponse({
       fields: {
         type: "transaction",
         transaction: tx,
-        message: `Declared for ${side === 0 ? rivalry.sideA : rivalry.sideB}. Relic stamped if the gate is open.`,
+        message: `Declared for ${side === 0 ? rivalry.sideA : rivalry.sideB}. Relic stamps if the Matchday gate is open.`,
       },
     });
 

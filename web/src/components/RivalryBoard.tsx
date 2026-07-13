@@ -39,7 +39,7 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
     loading: true,
     error: null,
   });
-  const [tick, setTick] = useState(0);
+  const [nowSec, setNowSec] = useState(() => Math.floor(Date.now() / 1000));
 
   const load = useCallback(async () => {
     const connection = new Connection(RPC_URL, "confirmed");
@@ -67,7 +67,12 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
       });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      setState((prev) => ({ ...prev, loading: false, error: msg }));
+      // Keep last known window so a flaky RPC does not disable claim.
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        error: prev.windowStart != null ? `Refresh lagged: ${msg}` : msg,
+      }));
     }
   }, [rivalry.slug]);
 
@@ -78,7 +83,10 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
   }, [load]);
 
   useEffect(() => {
-    const id = window.setInterval(() => setTick((t) => t + 1), 1000);
+    const id = window.setInterval(
+      () => setNowSec(Math.floor(Date.now() / 1000)),
+      1000,
+    );
     return () => window.clearInterval(id);
   }, []);
 
@@ -93,7 +101,6 @@ export function RivalryBoard({ rivalry, origin }: RivalryBoardProps) {
     [rivalry.colors],
   );
 
-  const nowSec = Math.floor(Date.now() / 1000) + tick * 0;
   const windowMissing =
     !state.loading &&
     (state.windowStart == null ||

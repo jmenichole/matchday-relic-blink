@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { RIVALRIES, rivalryCssVars } from "@/lib/rivalries";
 
@@ -13,7 +12,7 @@ const STEPS = [
   {
     n: "02",
     title: "Declare your side",
-    body: "Pick a team, add a motto, and sign with your wallet on this site — or share a Blink.",
+    body: "On the match board, pick a team, connect your wallet, and stamp a Relic. A Blink is just a shareable claim button for the same action.",
   },
   {
     n: "03",
@@ -36,21 +35,18 @@ export default function Home() {
             <p className="landing-lede">
               During a live Matchday window, declare your side and stamp an
               on-chain Relic on Solana. When the gate closes, allegiance is
-              locked — forever.
+              locked - forever.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
+            <a
               className="ticket-cta landing-cta"
               href={`/r/${FEATURED.slug}`}
               style={rivalryCssVars(FEATURED.colors) as CSSProperties}
             >
               Enter {FEATURED.title}
-            </Link>
-            <a
-              className="landing-secondary"
-              href="#how-it-works"
-            >
+            </a>
+            <a className="landing-secondary" href="#how-it-works">
               How it works
             </a>
           </div>
@@ -65,7 +61,7 @@ export default function Home() {
             How it works
           </h2>
           <p className="landing-section-lede">
-            A tiny on-chain ritual for rivalries — World Cup or fandom wars.
+            A tiny on-chain ritual for rivalries - World Cup or fandom wars.
             Same mechanic either way.
           </p>
           <ol className="landing-steps">
@@ -83,18 +79,15 @@ export default function Home() {
           </ol>
         </section>
 
-        <section
-          className="landing-section"
-          aria-labelledby="why-heading"
-        >
+        <section className="landing-section" aria-labelledby="why-heading">
           <h2 id="why-heading" className="landing-section-title">
             Why Solana
           </h2>
           <p className="landing-section-lede max-w-lg">
-            The Matchday window is enforced by Solana&apos;s clock — not a
-            website timer you can game. Your Relic is a public allegiance stamp
-            you can claim here with a wallet, or share as a Blink so fans can
-            declare from feed to chain.
+            The Matchday window is enforced by Solana&apos;s clock - not a
+            website timer you can game. Claim here with your wallet. Share a
+            Blink only when you want friends to hit the same claim button from
+            a feed.
           </p>
         </section>
 
@@ -115,7 +108,11 @@ export default function Home() {
                 key={rivalry.slug}
                 style={rivalryCssVars(rivalry.colors) as CSSProperties}
               >
-                <Link className="rivalry-link" href={`/r/${rivalry.slug}`}>
+                <a
+                  className="rivalry-link"
+                  href={`/r/${rivalry.slug}`}
+                  aria-label={`Open ${rivalry.title} board`}
+                >
                   <span className="font-[family-name:var(--font-display)] text-2xl tracking-wide">
                     {rivalry.title}
                   </span>
@@ -124,7 +121,8 @@ export default function Home() {
                     <span className="text-[var(--ink-dim)]">vs</span>
                     <span className="side-b-label">{rivalry.sideB}</span>
                   </span>
-                </Link>
+                  <span className="rivalry-link-cta">Open match board</span>
+                </a>
               </li>
             ))}
           </ul>

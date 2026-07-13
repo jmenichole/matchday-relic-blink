@@ -40,7 +40,6 @@ export function TicketStub({
 
   const remaining = windowEnd == null ? null : windowEnd - now;
   const closed = remaining != null && remaining <= 0;
-  // Nested Action URL query must be percent-encoded inside dial.to `action=`
   const dialectUrl = dialectBlinkUrl(blinkBaseUrl);
 
   return (
@@ -61,7 +60,7 @@ export function TicketStub({
           </p>
           <p className="mt-2 font-[family-name:var(--font-display)] text-4xl tabular-nums tracking-wider text-[var(--ink)] sm:text-5xl">
             {loading || remaining == null
-              ? "—:—:—"
+              ? "-:-:-"
               : closed
                 ? "LOCKED"
                 : formatCountdown(remaining)}
@@ -71,24 +70,25 @@ export function TicketStub({
         <div className="ticket-cta-group">
           {loading ? (
             <button type="button" disabled className="ticket-cta ticket-cta-disabled">
-              Checking gate…
+              Checking gate.
             </button>
           ) : closed || remaining == null ? (
             <button type="button" disabled className="ticket-cta ticket-cta-disabled">
-              Gate closed — Relics locked
+              Gate closed - Relics locked
             </button>
           ) : (
             <>
               <a className="ticket-cta" href="#claim">
-                Claim Relic
+                Claim with wallet
               </a>
               <a
                 className="ticket-blink-link"
                 href={dialectUrl}
                 target="_blank"
                 rel="noreferrer"
+                title="Opens Dial.to with a shareable Solana claim button for this match"
               >
-                Open Blink
+                Share Blink instead
               </a>
             </>
           )}

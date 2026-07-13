@@ -10,12 +10,12 @@ export function BoardExplainer({
   windowMissing,
 }: BoardExplainerProps) {
   const statusLabel = loading
-    ? "Checking gate…"
+    ? "Checking gate."
     : windowMissing
       ? "Window not seeded yet"
       : gateOpen
-        ? "Gate open — claim now"
-        : "Gate locked — Relics sealed";
+        ? "Gate open - claim now"
+        : "Gate locked - Relics sealed";
 
   const statusHint = loading
     ? "Loading the Matchday window from Solana."
@@ -29,7 +29,7 @@ export function BoardExplainer({
     <section className="board-explainer" aria-label="What is a Relic">
       <p className="board-explainer-lead">
         A <strong>Relic</strong> is your on-chain allegiance stamp for this
-        rivalry — side, motto, and timestamp — earned only while the Matchday
+        rivalry - side, motto, and timestamp - earned only while the Matchday
         window is open.
       </p>
       <p className="board-explainer-status">
@@ -37,8 +37,10 @@ export function BoardExplainer({
         <span className="board-explainer-status-hint">{statusHint}</span>
       </p>
       <p className="board-explainer-claim">
-        Claim with your wallet on this page. Opening a Blink is optional if you
-        want to share the Action from a feed.
+        <strong>Claim with your wallet below</strong> - that is the main path.
+        A <strong>Blink</strong> is a shareable Solana claim button (via Dial.to)
+        so someone can declare from a feed without browsing this page first. Use
+        it to share; use the wallet form here to stamp your own Relic.
       </p>
     </section>
   );

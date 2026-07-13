@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { SystemProgram } from "@solana/web3.js";
 import { padBytes } from "@/lib/bytes";
 import {
   allegiancePda,
@@ -38,7 +39,7 @@ export function WalletDeclare({
       return;
     }
     if (!gateOpen) {
-      setStatus("Gate closed — Relics locked");
+      setStatus("Gate closed - Relics locked");
       return;
     }
 
@@ -50,21 +51,26 @@ export function WalletDeclare({
       const allegiance = allegiancePda(rivalry, wallet.publicKey);
       const mottoBytes = padBytes(motto.slice(0, 64), 64);
 
-      await program.methods
+      const sig = await program.methods
         .declare(side, mottoBytes)
         .accounts({
           fan: wallet.publicKey,
           rivalry,
           allegiance,
+          systemProgram: SystemProgram.programId,
         })
         .rpc();
 
-      setStatus("Relic stamped on-chain.");
+      setStatus(`Relic stamped on-chain. ${sig.slice(0, 8)}...`);
       onDeclared?.();
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e);
-      if (/WindowClosed|6000|custom program error/i.test(msg)) {
-        setStatus("Gate closed — Relics locked");
+      if (/WindowClosed|6000|custom program error: 0x1770/i.test(msg)) {
+        setStatus("Gate closed - Relics locked");
+      } else if (/already in use|0x0/i.test(msg)) {
+        setStatus("Allegiance account conflict - refresh and try again.");
+      } else if (/User rejected|rejected the request|Cancellation/i.test(msg)) {
+        setStatus("Signature cancelled.");
       } else {
         setStatus(msg);
       }
@@ -83,9 +89,10 @@ export function WalletDeclare({
 
   return (
     <section id="claim" className="wallet-fallback">
-      <h3>Claim Relic</h3>
+      <h3>Claim Relic with wallet</h3>
       <p>
-        Pick a side, connect any Solana wallet, and stamp your Relic on-site.
+        Primary path: pick a side, connect any Solana wallet on Devnet, and
+        stamp your Relic here.
       </p>
       <WalletMultiButton />
       <div className="side-picker">
@@ -114,10 +121,10 @@ export function WalletDeclare({
       <button
         type="button"
         className="ticket-cta"
-        disabled={busy || !gateOpen}
-        onClick={declare}
+        disabled={busy || !gateOpen || !wallet.publicKey}
+        onClick={() => void declare()}
       >
-        {busy ? "Signing…" : "Declare & stamp"}
+        {busy ? "Signing." : "Declare & stamp"}
       </button>
       {status ? <p className="status-line">{status}</p> : null}
     </section>

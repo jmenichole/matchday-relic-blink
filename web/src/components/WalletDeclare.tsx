@@ -95,6 +95,26 @@ export function WalletDeclare({
         stamp your Relic here.
       </p>
       <WalletMultiButton />
+      <p className="wallet-install-hint">
+        Need a wallet? Install{" "}
+        <a
+          href="https://phantom.app/download"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Phantom
+        </a>{" "}
+        or{" "}
+        <a
+          href="https://solflare.com/download"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Solflare
+        </a>
+        , switch the network to <strong>Devnet</strong>, then tap Select Wallet
+        again.
+      </p>
       <div className="side-picker">
         <button
           type="button"

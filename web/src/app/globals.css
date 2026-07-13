@@ -562,6 +562,23 @@ body {
   margin-top: 1.25rem;
 }
 
+.wallet-install-hint {
+  margin: 0.65rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink-dim);
+}
+
+.wallet-install-hint a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.wallet-install-hint a:hover {
+  color: var(--ink);
+}
+
 .blink-side-actions {
   display: flex;
   flex-direction: column;

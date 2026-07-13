@@ -116,6 +116,25 @@ export function BlinkClaim({ rivalry, actionUrl }: Props) {
 
       <div className="blink-wallet">
         <WalletMultiButton />
+        <p className="wallet-install-hint">
+          No wallets in the list? Install{" "}
+          <a
+            href="https://phantom.app/download"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Phantom
+          </a>{" "}
+          or{" "}
+          <a
+            href="https://solflare.com/download"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Solflare
+          </a>
+          , set network to <strong>Devnet</strong>, refresh, then connect.
+        </p>
       </div>
 
       <div className="blink-side-actions">

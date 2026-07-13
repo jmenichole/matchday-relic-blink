@@ -30,7 +30,7 @@ export const RIVALRIES: readonly RivalryMeta[] = [
       // Argentina celeste + white; France blue / white / red accents
       sideA: "#74ACDF",
       sideASoft: "rgba(116, 172, 223, 0.22)",
-      sideB: "#002395",
+      sideB: "#7BA3FF",
       sideBSoft: "rgba(0, 35, 149, 0.35)",
       accent: "#ED2939",
       glowA: "rgba(116, 172, 223, 0.28)",
@@ -51,7 +51,7 @@ export const RIVALRIES: readonly RivalryMeta[] = [
       // Nova cyan/magenta; Volt amber/gold vs deep violet
       sideA: "#22D3EE",
       sideASoft: "rgba(34, 211, 238, 0.2)",
-      sideB: "#F59E0B",
+      sideB: "#FBBF24",
       sideBSoft: "rgba(245, 158, 11, 0.22)",
       accent: "#E879F9",
       glowA: "rgba(34, 211, 238, 0.26)",
